@@ -116,12 +116,13 @@ public class HedgeCamera : MonoBehaviour
         //Copy and Lerp the player's Pos
         if (!Locked)
         {
-            if (Player.GroundNormal.y < AngleThreshold && Player.Grounded || Player.b_normalSpeed > LockCamAtHighSpeed)
+			if (Player.GroundNormal.y < AngleThreshold && Player.Grounded || Player.b_normalSpeed > LockCamAtHighSpeed)
             {
                 PlayerPosLerped.position = Target.position;
                 Quaternion newrot = Player.transform.rotation;
                 PlayerPosLerped.rotation = Quaternion.Lerp(PlayerPosLerped.rotation, newrot,
                     Time.deltaTime * CameraVerticalRotationSpeed);
+				Debug.Log ("Camera behind sonic");
             }
             else
             {
@@ -136,6 +137,13 @@ public class HedgeCamera : MonoBehaviour
             y -= (Input.GetAxis("Vertical_right") * ((InputYSpeed) * SensiY) * InvertedY) * Time.deltaTime;
             x += (Input.GetAxis("Mouse X") * ((InputXSpeed) * SensiX) * InvertedX) * Time.deltaTime;
             y -= (Input.GetAxis("Mouse Y") * ((InputYSpeed) * SensiY) * InvertedY) * Time.deltaTime;
+
+			if (Input.GetButton ("L1")) 
+			{
+				FollowDirection(3, 14, -10, 0);
+				Debug.Log ("Pressed");
+			}
+
         }
         else
         {
